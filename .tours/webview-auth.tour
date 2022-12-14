@@ -1,0 +1,37 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "WebView Auth",
+  "steps": [
+    {
+      "file": "src/components/HOC/withStoreFrontHost.tsx",
+      "description": "This is a wrapper for the webview components that provides. It abstracts away the implementation details of fetching the store front urls and it passes it as props to the wrapped components.",
+      "line": 15
+    },
+    {
+      "file": "src/components/account/AccountWebView.tsx",
+      "description": "We use this event listener here to refresh the webview every time we land on the account tab, we do the same for the `Cart` and `AccountSettingsWebview` as well.",
+      "line": 11
+    },
+    {
+      "file": "src/components/account/AccountWebView.tsx",
+      "description": "The query param `source=APP` ad well as the `userAgent={'APP'}` are added to let the web app know that the request is coming from the mobile app and to hide certain UI components for better UX.",
+      "line": 24
+    },
+    {
+      "file": "src/components/account/AccountWebView.tsx",
+      "description": "The webview automatically shares the Cookies on the app with whatever page it navigates to.",
+      "line": 28
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "Once the user is logged in and we trigger the `refreshCookies()` so that we send a new `oAuthToken` and `SID` to the webview (Since it gets refreshed everytime, it will reload the new cookie).",
+      "line": 25
+    },
+    {
+      "file": "src/lib/cookies.ts",
+      "description": "We first wipe clean the old cookies, create new headers which will renew the `oAuthToken` and `SID` in the secure storage then we recreate the cookie for the webviews to consume.",
+      "line": 65
+    }
+  ],
+  "ref": "auth-webview-codetour"
+}

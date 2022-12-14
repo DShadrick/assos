@@ -1,0 +1,32 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "PIP",
+  "steps": [
+    {
+      "file": "src/screens/ProductIndex.tsx",
+      "description": "Let's start by finding out how we use, then we worry about how it works.\n\nThe procuct provider is dependent on a query, otherwise it won't work BUT, it's very flexible since it can be reused to render a different PIP component with a different query without to write a single line of code, just change the query and wrap it around another PIP component or any other component as a matter of fact.",
+      "line": 17
+    },
+    {
+      "file": "src/components/PIP/Context/ProductProvider.tsx",
+      "description": "`products` are the products that will be manipulated and rendered to the screen.\n`bestSelectionProducts` are the products that are initially fetched and should NEVER at any circumstances be modified.\nThe reason we don't touch `bestSelectionProducts` is because we reuse those products after clearing filters or sort options without having to manipulate data or making another request to the API.\n\n\n",
+      "line": 59,
+      "selection": {
+        "start": {
+          "line": 61,
+          "character": 10
+        },
+        "end": {
+          "line": 61,
+          "character": 31
+        }
+      }
+    },
+    {
+      "file": "src/components/PIP/Hooks/useFilterOptions.tsx",
+      "description": "Here is the logic for filtering using different options, a single reusable function wasn't created to allow for extensibility of a single given method or the modification without affecting other logic and it also doesn't come at the cost of performance.",
+      "line": 14
+    }
+  ],
+  "ref": "auth-webview-codetour"
+}

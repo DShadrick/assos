@@ -1,0 +1,132 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Social Auth",
+  "steps": [
+    {
+      "file": "src/index.ts",
+      "description": "From the env option menu on your iOS simulator or Android emulator, select `Cookie / AsyncStorage Manager` --> `Cookies - Clear` --> `AsyncStorage - Clear` --> `Sentitive Info - Clear`.\n\nFORCE close the app and relaunch it.\n\nNotes:\n\n1- We use `Sinfo` to store, get and update `AuthToken` , `SID` and Login method.",
+      "line": 19
+    },
+    {
+      "file": "package.json",
+      "description": "These packages are required for authentication \n\n\n```json\n    \"@invertase/react-native-apple-authentication\": \"^2.2.1\",\n    \"@react-native-cookies/cookies\": \"6.2.0\",\n    \"@react-native-firebase/app\": \"^15.7.0\",\n    \"@react-native-firebase/auth\": \"^15.7.0\",\n    \"@react-native-google-signin/google-signin\": \"^8.0.0\",\n    \"react-native-fbsdk-next\": \"^10.1.0\",\n\n```",
+      "line": 39,
+      "selection": {
+        "start": {
+          "line": 61,
+          "character": 1
+        },
+        "end": {
+          "line": 61,
+          "character": 42
+        }
+      }
+    },
+    {
+      "file": "env/common.js",
+      "description": "This is the object containing all app ID, credentials, etc.\n\nWe use those for the setup scripts which adds native code to the app to integrate the SDK of a given package e.g Facebook, Google, Apple.",
+      "line": 149,
+      "selection": {
+        "start": {
+          "line": 170,
+          "character": 3
+        },
+        "end": {
+          "line": 170,
+          "character": 4
+        }
+      }
+    },
+    {
+      "file": "scripts/modules/ios/app.js",
+      "description": "Some of the setup scripts here are not Social Sign In specific, however most of them are. We shouldn't need to mess with this at all since everything is already setup and working as expected.\n\nIf you are interested in finding out all the native code setup steps, please follow instructions in the following links,\n\nhttps://rnfirebase.io/auth/usage\n\nhttps://github.com/invertase/react-native-apple-authentication\n\nhttps://github.com/thebergamo/react-native-fbsdk-next\n\n\nhttps://github.com/react-native-google-signin/google-signin",
+      "line": 1
+    },
+    {
+      "file": "src/index.ts",
+      "description": "Initialize Google's SDK with required credentials and provide scopes",
+      "line": 20
+    },
+    {
+      "file": "src/index.ts",
+      "description": "Initialize Facebook's SDK",
+      "line": 28
+    },
+    {
+      "file": "src/index.ts",
+      "description": "Register Facebook's appID",
+      "line": 29
+    },
+    {
+      "file": "src/components/account/SignIn/SignInOptions.tsx",
+      "description": "We use a `useSignIn` hook here to abstract sign in logic since this component should only be responsible for handling the UI of the different sign in options.",
+      "line": 15
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "The `error` and `loading` states aren't currently leveraged in the app since there was no requirements for them, however they can be used to control the flow of rendering componenets and triggering other logic based on their state.",
+      "line": 18
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "Here we prompt the user to login with the scopes desired.",
+      "line": 33
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "Once the user is logged in, we can access the different authorization info needed for the complition of the login process.\n\nNOTE: The `identityToken` and `authorizationCode` are different from the Magento's `oAuthToken` and `SID`, HOWEVER we use them to eventually get a Magento's `oAuthToken` and `SID`, you will see in the next steps.",
+      "line": 38,
+      "selection": {
+        "start": {
+          "line": 38,
+          "character": 35
+        },
+        "end": {
+          "line": 38,
+          "character": 52
+        }
+      }
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "This is the `payload` structure expected by Magento.",
+      "line": 39
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "This sounds like we are checking against bots signing in but we are not, this is to check whether the user was successfully logged in or not.\n\nThe documentation has the following as the check `if (credentialState === appleAuth.State.AUTHORIZED)` but in their docs, they say that this check throws an warning and they are currently working on it 🤷‍♂️.",
+      "line": 49
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "This method here hits magento's social sign in endpoint which returns the `oAuthToken` I mentioned before which we use to get a new `SID` for that user.",
+      "line": 51
+    },
+    {
+      "file": "src/datasources/magento/User/user.controller.ts",
+      "description": "Get and store the `oAuthToken` in secure storage then create a new session and store `SID` in secure storage as well.",
+      "line": 40
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "Here we clean everything up and refresh cookies so that users can sign in and out and get a new flow everytime.\n\nWe do this after ANY of the social sign in events.",
+      "line": 22
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "Since we use magento to decide wether a user is logged in or not based on the previous steps, this step isn't really necessary BUT, it doesn't hurt to have it.",
+      "line": 60
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "Pretty much the same as Apple sign in so no need to explain further",
+      "line": 66
+    },
+    {
+      "file": "src/components/account/hooks/useSignIn.tsx",
+      "description": "Pretty much the same as Apple sign in so no need to explain further",
+      "line": 104
+    }
+  ],
+  "ref": "auth-webview-codetour"
+}
